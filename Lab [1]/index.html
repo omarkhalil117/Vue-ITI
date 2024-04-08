@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="unicode">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./vue.global.js"></script>
@@ -42,7 +42,7 @@
                         <h5>Title : {{book.title}}</h5>
                         <h5>Author : {{book.author}}</h5>
                         <h5>Country : {{book.country}}</h5>
-                        <h5>Price : {{Intl.NumberFormat('ar-SA', {style: 'currency' , currency:'RSA'}).format(book.price)}}</h5>
+                        <h5>Price : {{Intl.NumberFormat('ar-SA', {style: 'currency' , currency:'SAR'}).format(book.price)}}</h5>
                         <h5 :class="{'more': book.pages>200 , 'less': book.pages<300}">No. of pages : {{book.pages}}</h5>
                     </div>
 
@@ -54,10 +54,10 @@
         </div>
 
         <!-- Wishlist page -->
-        <div class="wishlist text-center" v-else>
+        <div class="wishlist text-center" v-else-if="wishListVisible">
             <button class="btn btn-primary m-auto" @click="hideWishlist()">Back</button>
             <div v-if="count == 0">No books in yours wishlist</div>
-            <div v-else>
+            <div v-else-if="count > 0">
                 <div v-for="book in wishlist">
                     <table class="table">
                         <thead class="m-3">
@@ -85,7 +85,6 @@
     
     <script src="./books.js"></script>
     <script>
-        console.log(books)
         Vue.createApp({
             data: ()=> ({
                 msg:"Bookstore",
@@ -93,6 +92,7 @@
                 books: books,
                 wishListVisible:false,
                 wishlist: []
+                
             })
         ,methods: {
             addToWishlist(book)
